@@ -10,9 +10,11 @@ var dice = Math.floor(Math.random() * 6) + 1;
 //<div class="player-score" id="score-0">43</div>
 //window.document.querySelector("#score-0").textContent = dice;
 // Тоглоом эхлэхэд бэлтгэх
-window.document.querySelector("#score-0").textContent = 0;
-window.document.querySelector("#score-1").textContent = 0;
-window.document.querySelector("#current-0").textContent = 0;
-window.document.querySelector("#current-1").textContent = 0;
-window.document.querySelector(".dice").style.display = "none";
+document.getElementById("score-0").textContent = "0";
+document.getElementById("score-1").textContent = "0";
+document.getElementById("current-0").textContent = "0";
+document.getElementById("current-1").textContent = "0";
+document.querySelector(".dice").style.display = "none";
+document.querySelector("btn-roll").addEventListener("click", shooShid);
+shooShid;
 console.log("Шоо: " + dice);
