@@ -1,5 +1,7 @@
 // Тоглогчийн ээлж хадгалах хувьсагч, нэгдүгээр тоглогч 0, хоёрдугаар тоглогч 1.
 var activePlayer;
+// Тоглоомын төлвийг хадгалах хувьсагч
+var isNewGame;
 // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
 var score;
 // Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
@@ -12,6 +14,7 @@ var diceDom = document.querySelector(".dice");
 initNewGame();
 
 function initNewGame() {
+  isNewGame = true;
   activePlayer = 0;
   score = [0, 0];
   roundScore = 0;
@@ -43,33 +46,41 @@ function switchPlayer() {
     .querySelector(".player-" + activePlayer + "-panel")
     .classList.add("active");
 }
-document.querySelector(".btn-roll").addEventListener("click", function () {
-  var diceNumber = Math.floor(Math.random() * 6) + 1;
-  diceDom.style.display = "block";
-  diceDom.src = "dice-" + diceNumber + ".png";
 
-  if (diceNumber !== 1) {
-    roundScore = roundScore + diceNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
-  } else {
-    switchPlayer();
+document.querySelector(".btn-roll").addEventListener("click", function () {
+  if (isNewGame === true) {
+    var diceNumber = Math.floor(Math.random() * 6) + 1;
+    diceDom.style.display = "block";
+    diceDom.src = "dice-" + diceNumber + ".png";
+
+    if (diceNumber !== 1) {
+      roundScore = roundScore + diceNumber;
+      document.getElementById(
+        "current-" + activePlayer
+      ).textContent = roundScore;
+    } else {
+      switchPlayer();
+    }
   }
 });
 // HOLD товчны эвент листенер
 document.querySelector(".btn-hold").addEventListener("click", function () {
-  score[activePlayer] = score[activePlayer] + roundScore;
-  document.getElementById("score-" + activePlayer).textContent =
-    score[activePlayer];
-  if (score[activePlayer] >= 10) {
-    document.getElementById("name-" + activePlayer).textContent = "WINNER!";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.remove("active");
-  } else {
-    switchPlayer();
+  if (isNewGame === true) {
+    score[activePlayer] = score[activePlayer] + roundScore;
+    document.getElementById("score-" + activePlayer).textContent =
+      score[activePlayer];
+    if (score[activePlayer] >= 10) {
+      isNewGame = false;
+      document.getElementById("name-" + activePlayer).textContent = "WINNER!";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+    } else {
+      switchPlayer();
+    }
   }
 });
 
