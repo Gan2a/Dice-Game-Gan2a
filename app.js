@@ -17,6 +17,18 @@ document.getElementById("current-1").textContent = "0";
 
 var diceDom = document.querySelector(".dice");
 diceDom.style.display = "none";
+function switchPlayer() {
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = "0";
+  //diceDom.style.display = "none";
+  document
+    .querySelector(".player-" + activePlayer + "-panel")
+    .classList.remove("active");
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  document
+    .querySelector(".player-" + activePlayer + "-panel")
+    .classList.add("active");
+}
 document.querySelector(".btn-roll").addEventListener("click", function () {
   var diceNumber = Math.floor(Math.random() * 6) + 1;
   diceDom.style.display = "block";
@@ -26,15 +38,25 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     roundScore = roundScore + diceNumber;
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = "0";
-    diceDom.style.display = "none";
+    switchPlayer();
+  }
+});
+// HOLD товчны эвент листенер
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  score[activePlayer] = score[activePlayer] + roundScore;
+  document.getElementById("score-" + activePlayer).textContent =
+    score[activePlayer];
+  if (score[activePlayer] >= 10) {
+    document.getElementById("name-" + activePlayer).textContent = "WINNER!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
     document
       .querySelector(".player-" + activePlayer + "-panel")
       .classList.remove("active");
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("active");
+  } else {
+    switchPlayer();
   }
 });
+
+document.querySelector(".btn-new").addEventListener("click", function () {});
