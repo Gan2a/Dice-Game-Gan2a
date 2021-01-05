@@ -1,22 +1,36 @@
 // Тоглогчийн ээлж хадгалах хувьсагч, нэгдүгээр тоглогч 0, хоёрдугаар тоглогч 1.
-var activePlayer = 0;
-
+var activePlayer;
 // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
-var score = [0, 0];
+var score;
 // Тоглогчийн ээлжиндээ цуглуулж байгаа оноог хадгалах хувьсагч
-var roundScore = 0;
+var roundScore;
 // Шооны аль талаараа буусныг хадгалах хувьсагч хэрэгтэй, 1-6 гэсэн утгыг энэ хувьсагчид санамсаргүйгээр үүсгэж өгнө.
 
-//<div class="player-score" id="score-0">43</div>
-//window.document.querySelector("#score-0").textContent = dice;
 // Тоглоом эхлэхэд бэлтгэх
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
-
 var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+
+initNewGame();
+
+function initNewGame() {
+  activePlayer = 0;
+  score = [0, 0];
+  roundScore = 0;
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+  diceDom.style.display = "none";
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+  document
+    .querySelector(".player-" + activePlayer + "-panel")
+    .classList.add("active");
+}
+
 function switchPlayer() {
   roundScore = 0;
   document.getElementById("current-" + activePlayer).textContent = "0";
@@ -59,4 +73,4 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
   }
 });
 
-document.querySelector(".btn-new").addEventListener("click", function () {});
+document.querySelector(".btn-new").addEventListener("click", initNewGame);
