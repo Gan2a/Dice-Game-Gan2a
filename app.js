@@ -69,7 +69,7 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
     score[activePlayer] = score[activePlayer] + roundScore;
     document.getElementById("score-" + activePlayer).textContent =
       score[activePlayer];
-    if (score[activePlayer] >= 10) {
+    if (score[activePlayer] >= 100) {
       isNewGame = false;
       document.getElementById("name-" + activePlayer).textContent = "WINNER!";
       document
